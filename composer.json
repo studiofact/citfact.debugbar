@@ -1,0 +1,22 @@
+{
+    "name": "citfact/debugbar",
+    "type": "bitrix-module",
+    "description": "PHP debug bar for 1C-Bitrix",
+    "keywords": ["debug bar", "debugbar"],
+    "homepage": "https://github.com/studiofact/citfact.debugbar",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kulichkin Denis",
+            "email": "onexhovia@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "composer/installers": "~1.0",
+        "maximebf/debugbar": "1.*"
+    },
+    "extra": {
+        "installer-name": "citfact.debugbar"
+    }
+}
