@@ -158,6 +158,10 @@ class citfact_debugbar extends CModule
      */
     public function installEvents()
     {
+        RegisterModuleDependences('main', 'OnProlog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'includeModule');
+        RegisterModuleDependences('main', 'OnEndBufferContent', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'render');
+        RegisterModuleDependences('main', 'OnEpilog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'renderAssets');
+
         return true;
     }
 
@@ -169,6 +173,10 @@ class citfact_debugbar extends CModule
      */
     public function unInstallEvents()
     {
+        UnRegisterModuleDependences('main', 'OnProlog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'includeModule');
+        UnRegisterModuleDependences('main', 'OnEndBufferContent', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'render');
+        UnRegisterModuleDependences('main', 'OnEpilog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'renderAssets');
+
         return true;
     }
 

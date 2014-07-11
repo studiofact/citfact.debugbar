@@ -9,7 +9,11 @@
  * file that was distributed with this source code.
  */
 
-function debugbar_log($message)
+/**
+ * @param string $message
+ * @param string $type
+ */
+function debugbar_log($message, $type = 'debug')
 {
-
+    \Citfact\DebugBar\Debug::getInstance()->log($message, $type);
 }

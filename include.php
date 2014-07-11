@@ -11,9 +11,13 @@
 
 use Bitrix\Main\Loader;
 
-require_once __DIR__.'/lib/Functions.php';
+require_once __DIR__.'/lib/DebugFunctions.php';
+
+if (file_exists(getenv('DOCUMENT_ROOT').'/vendor/autoload.php')) {
+    require_once getenv('DOCUMENT_ROOT').'/vendor/autoload.php';
+}
 
 Loader::registerAutoLoadClasses('citfact.debugbar', array(
-    'Citfact\DebugBar\DebugBridge' => 'lib/DebugBridge.php',
+    'Citfact\DebugBar\Debug' => 'lib/Debug.php',
+    'Citfact\DebugBar\DebugEvent' => 'lib/DebugEvent.php',
 ));
-
