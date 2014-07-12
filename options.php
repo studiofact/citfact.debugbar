@@ -37,7 +37,7 @@ if ($request->isPost() && $request->getPost('RESTORE_DEFAULTS')) {
 if ($request->isPost() && $request->getPost('UPDATE')) {
     foreach ($allOptions as $option) {
         $value = $request->getPost($option[0]);
-        $value = ($option[3][0] == 'checkbox' && $value != 'Y') ? 'N' : 'Y';
+        $value = ($option[3][0] == 'checkbox' && $value != 'Y') ? 'N' : $value;
         Config\Option::set($moduleId, $option[0], $value);
     }
 }
