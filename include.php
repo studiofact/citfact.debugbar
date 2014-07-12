@@ -18,6 +18,7 @@ if (file_exists(getenv('DOCUMENT_ROOT').'/vendor/autoload.php')) {
 }
 
 Loader::registerAutoLoadClasses('citfact.debugbar', array(
+    'Citfact\DebugBar\DataCollector\UrlRewriterDataCollector' => 'lib/DataCollector/UrlRewriterDataCollector.php',
     'Citfact\DebugBar\Debug' => 'lib/Debug.php',
     'Citfact\DebugBar\DebugEvent' => 'lib/DebugEvent.php',
 ));

@@ -11,14 +11,22 @@
 
 namespace Citfact\DebugBar;
 
-use DebugBar\StandardDebugBar as BaseDebugBar;
+use Bitrix\Main\Config;
+use DebugBar\DebugBar as BaseDebugBar;
+use DebugBar\DataCollector\PhpInfoCollector;
+use DebugBar\DataCollector\MessagesCollector;
+use DebugBar\DataCollector\TimeDataCollector;
+use DebugBar\DataCollector\RequestDataCollector;
+use DebugBar\DataCollector\MemoryCollector;
+use DebugBar\DataCollector\ExceptionsCollector;
+use Citfact\DebugBar\DataCollector\UrlRewriterDataCollector;
 
 class Debug
 {
     /**
-     * @var \DebugBar\StandardDebugBar
+     * @var \DebugBar\DebugBar
      */
-    protected static $debugBar;
+    protected $debugBar;
 
     /**
      * @var Debug
@@ -30,7 +38,14 @@ class Debug
      */
     public function __construct()
     {
-        self::$debugBar = new BaseDebugBar();
+        $this->debugBar = new BaseDebugBar();
+        $this->debugBar->addCollector(new PhpInfoCollector());
+        $this->debugBar->addCollector(new MessagesCollector());
+        $this->debugBar->addCollector(new RequestDataCollector());
+        $this->debugBar->addCollector(new UrlRewriterDataCollector());
+        $this->debugBar->addCollector(new TimeDataCollector());
+        $this->debugBar->addCollector(new MemoryCollector());
+        $this->debugBar->addCollector(new ExceptionsCollector());
     }
 
     /**
@@ -48,11 +63,27 @@ class Debug
     }
 
     /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return (Config\Option::get('citfact.debugbar', 'ACTIVE') == 'Y') ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGranted()
+    {
+        return (Config\Option::get('citfact.debugbar', 'GRANTED') == 'Y') ? true : false;
+    }
+
+    /**
      * @return BaseDebugBar
      */
     public function getDebugBar()
     {
-        return self::$debugBar;
+        return $this->debugBar;
     }
 
     /**
@@ -61,6 +92,6 @@ class Debug
      */
     public function log($message, $type = 'debug')
     {
-        self::$debugBar['messages']->addMessage($message, $type);
+        $this->debugBar['messages']->addMessage($message, $type);
     }
 }
