@@ -17,6 +17,9 @@ use DebugBar\DataCollector\DataCollector as BaseDataCollector;
 
 class UrlRewriterDataCollector extends BaseDataCollector implements Renderable
 {
+    /**
+     * @inheritdoc
+     */
     public function collect()
     {
         $urlRewriterRules = UrlRewriter::getList(SITE_ID);
@@ -27,11 +30,17 @@ class UrlRewriterDataCollector extends BaseDataCollector implements Renderable
         return $urlRewriterRules;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getName()
     {
         return 'urlrewriter';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getWidgets()
     {
         return array(

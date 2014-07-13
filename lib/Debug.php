@@ -67,7 +67,7 @@ class Debug
      */
     public function isActive()
     {
-        return (Config\Option::get('citfact.debugbar', 'ACTIVE') == 'Y') ? true : false;
+        return (Config\Option::get('citfact.debugbar', 'ACTIVE') == 'Y');
     }
 
     /**
@@ -75,7 +75,9 @@ class Debug
      */
     public function isGranted()
     {
-        return (Config\Option::get('citfact.debugbar', 'GRANTED') == 'Y') ? true : false;
+        $checkPermission = (Config\Option::get('citfact.debugbar', 'GRANTED') == 'Y');
+
+        return ($checkPermission) ? $GLOBALS['USER']->IsAdmin() : true;
     }
 
     /**

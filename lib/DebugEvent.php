@@ -31,6 +31,10 @@ class DebugEvent
         $debugBar = Debug::getInstance();
         $workPath = getcwd();
 
+        if (!$debugBar->isActive() || !$debugBar->isGranted()) {
+            return;
+        }
+
         list($cssAssets, $jsAssets) = $debugBar->getDebugBar()
             ->getJavascriptRenderer()
             ->getAssets();
@@ -53,6 +57,10 @@ class DebugEvent
     public static function render(&$buffer)
     {
         $debugBar = Debug::getInstance();
+
+        if (!$debugBar->isActive() || !$debugBar->isGranted()) {
+            return $buffer;
+        }
 
         ob_start();
         echo $debugBar->getDebugBar()->getJavascriptRenderer()->render();
