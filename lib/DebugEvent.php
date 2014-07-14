@@ -29,7 +29,7 @@ class DebugEvent
     public static function renderAssets()
     {
         $debugBar = Debug::getInstance();
-        $workPath = getcwd();
+        $workPath = getenv('DOCUMENT_ROOT');
 
         if (!$debugBar->isActive() || !$debugBar->isGranted()) {
             return;
