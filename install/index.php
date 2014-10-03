@@ -52,7 +52,7 @@ class citfact_debugbar extends CModule
     public $PARTNER_URI;
 
     /**
-     * @var \Bitrix\Main\EventManage
+     * @var \Bitrix\Main\EventManager
      */
     private $eventManager;
 
