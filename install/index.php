@@ -10,6 +10,7 @@
  */
 
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\EventManager;
 
 Loc::loadMessages(__FILE__);
 
@@ -51,6 +52,11 @@ class citfact_debugbar extends CModule
     public $PARTNER_URI;
 
     /**
+     * @var \Bitrix\Main\EventManage
+     */
+    private $eventManager;
+
+    /**
      * Construct object
      */
     public function __construct()
@@ -66,6 +72,8 @@ class citfact_debugbar extends CModule
 
         $this->MODULE_VERSION = $arModuleVersion['VERSION'];
         $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
+
+        $this->eventManager = EventManager::getInstance();
     }
 
     /**
@@ -158,9 +166,9 @@ class citfact_debugbar extends CModule
      */
     public function installEvents()
     {
-        RegisterModuleDependences('main', 'OnProlog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'includeModule');
-        RegisterModuleDependences('main', 'OnEndBufferContent', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'render');
-        RegisterModuleDependences('main', 'OnEpilog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'renderAssets');
+        $this->eventManager->registerEventHandler('main', 'OnProlog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'includeModule');
+        $this->eventManager->registerEventHandler('main', 'OnEndBufferContent', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'render');
+        $this->eventManager->registerEventHandler('main', 'OnEpilog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'renderAssets');
 
         return true;
     }
@@ -173,9 +181,9 @@ class citfact_debugbar extends CModule
      */
     public function unInstallEvents()
     {
-        UnRegisterModuleDependences('main', 'OnProlog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'includeModule');
-        UnRegisterModuleDependences('main', 'OnEndBufferContent', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'render');
-        UnRegisterModuleDependences('main', 'OnEpilog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'renderAssets');
+        $this->eventManager->unRegisterEventHandler('main', 'OnProlog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'includeModule');
+        $this->eventManager->unRegisterEventHandler('main', 'OnEndBufferContent', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'render');
+        $this->eventManager->unRegisterEventHandler('main', 'OnEpilog', $this->MODULE_ID, 'Citfact\\DebugBar\\DebugEvent', 'renderAssets');
 
         return true;
     }
