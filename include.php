@@ -13,12 +13,8 @@ use Bitrix\Main\Loader;
 
 require_once __DIR__.'/lib/DebugFunctions.php';
 
-if (file_exists(getenv('DOCUMENT_ROOT').'/vendor/autoload.php')) {
-    require_once getenv('DOCUMENT_ROOT').'/vendor/autoload.php';
-}
-
 Loader::registerAutoLoadClasses('citfact.debugbar', array(
-    'Citfact\DebugBar\DataCollector\UrlRewriterDataCollector' => 'lib/DataCollector/UrlRewriterDataCollector.php',
-    'Citfact\DebugBar\Debug' => 'lib/Debug.php',
-    'Citfact\DebugBar\DebugEvent' => 'lib/DebugEvent.php',
+    'Citfact\DebugBar\DataCollector\UrlRewriterDataCollector' => 'lib/Citfact/DebugBar/DataCollector/UrlRewriterDataCollector.php',
+    'Citfact\DebugBar\Debug' => 'lib/Citfact/DebugBar/Debug.php',
+    'Citfact\DebugBar\DebugEvent' => 'lib/Citfact/DebugBar/DebugEvent.php',
 ));
